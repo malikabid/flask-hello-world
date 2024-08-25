@@ -31,20 +31,37 @@ h1 {
     color: #333;
 }
 
+/* Options Styling */
+div {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+label {
+    margin-right: 15px;
+    font-weight: bold;
+    color: #555;
+}
+
 /* Form Styles */
 form {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
-label {
+label[for="csvTextarea"],
+label[for="file"] {
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
 }
 
-input[type="text"],
-input[type="email"],
+textarea,
 input[type="file"] {
     padding: 10px;
     font-size: 1em;
@@ -68,18 +85,18 @@ input[type="submit"]:hover {
     background-color: #218838;
 }
 
-/* Align download link in the center of the page */
+/* Response Message */
 #response {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0; /* Remove padding to eliminate red block appearance */
-    background-color: transparent; /* Make background transparent */
-    border: none; /* Remove border */
-    color: inherit; /* Keep text color default */
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: inherit;
 }
 
-/* Center the download link and apply button styles */
+/* Download Link Styles */
 a.download-link {
     display: inline-block;
     padding: 10px 20px;
@@ -90,15 +107,12 @@ a.download-link {
     text-decoration: none;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    text-align: center; /* Ensure the text is centered within the link */
-    width: 100%;
 }
 
 a.download-link:hover {
     background-color: #0056b3;
     transform: scale(1.05);
 }
-
 
 /* Responsive Design */
 @media (max-width: 600px) {
@@ -112,8 +126,7 @@ a.download-link:hover {
         font-size: 1.5em;
     }
 
-    input[type="text"],
-    input[type="email"],
+    textarea,
     input[type="file"],
     input[type="submit"] {
         font-size: 1em;
