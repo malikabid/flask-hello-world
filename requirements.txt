@@ -1,2 +1,8 @@
 Flask
 Gunicorn
+requests
+requests-oauthlib
+rsa
+zipp
+pandas
+Pillow
