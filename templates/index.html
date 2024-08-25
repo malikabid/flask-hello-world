@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV Upload or Paste</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h1>Upload or Paste CSV Data</h1>
-        
+
         <!-- Options to select file upload or textarea -->
         <div>
             <input type="radio" id="textareaOption" name="uploadOption" value="textarea" checked>
@@ -22,7 +24,8 @@
         <!-- Textarea for pasting CSV data (default option) -->
         <form id="textareaForm" style="display: block;">
             <label for="csvTextarea">Paste your CSV data here:</label><br>
-            <textarea id="csvTextarea" name="csvTextarea" rows="10" cols="50" placeholder="Paste CSV data here"></textarea><br><br>
+            <textarea id="csvTextarea" name="csvTextarea" rows="10" cols="50"
+                placeholder="Paste CSV data here"></textarea><br><br>
             <input type="submit" value="Submit CSV Data">
         </form>
 
@@ -37,20 +40,31 @@
     </div>
 
     <script>
+
+        // Function to remove the download link if it exists
+        function removeDownloadLink() {
+            const existingLink = document.querySelector('#response a.download-link');
+            if (existingLink) {
+                existingLink.remove();
+            }
+        }
+
         // Switch between textarea and file upload based on selected option
-        document.getElementById('textareaOption').addEventListener('change', function() {
+        document.getElementById('textareaOption').addEventListener('change', function () {
             document.getElementById('textareaForm').style.display = 'block';
             document.getElementById('fileUploadForm').style.display = 'none';
         });
 
-        document.getElementById('fileUploadOption').addEventListener('change', function() {
+        document.getElementById('fileUploadOption').addEventListener('change', function () {
             document.getElementById('textareaForm').style.display = 'none';
             document.getElementById('fileUploadForm').style.display = 'block';
         });
 
         // Handle textarea form submission
-        document.getElementById('textareaForm').addEventListener('submit', function(e) {
+        document.getElementById('textareaForm').addEventListener('submit', function (e) {
             e.preventDefault();
+
+            removeDownloadLink();
 
             const csvData = document.getElementById('csvTextarea').value;
             const formData = new FormData();
@@ -60,28 +74,30 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                // document.getElementById('response').innerText = "Server Response: " + JSON.stringify(data);
-                document.getElementById('response').style.display = "block";
+                .then(response => response.json())
+                .then(data => {
+                    // document.getElementById('response').innerText = "Server Response: " + JSON.stringify(data);
+                    document.getElementById('response').style.display = "block";
 
-                if (data.download_link) {
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = `/download/${data.download_link}`;
-                    downloadLink.innerText = 'Download Images';
-                    downloadLink.classList.add('download-link');
-                    document.getElementById('response').appendChild(downloadLink);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                    if (data.download_link) {
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = `/download/${data.download_link}`;
+                        downloadLink.innerText = 'Download Images';
+                        downloadLink.classList.add('download-link');
+                        document.getElementById('response').appendChild(downloadLink);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
 
         // Handle file upload form submission
-        document.getElementById('fileUploadForm').addEventListener('submit', function(e) {
+        document.getElementById('fileUploadForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
+            removeDownloadLink();
+            
             const formData = new FormData();
             const fileInput = document.getElementById('file');
             formData.append('file', fileInput.files[0]);
@@ -90,23 +106,24 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                // document.getElementById('response').innerText = "Server Response: " + JSON.stringify(data);
-                document.getElementById('response').style.display = "block";
+                .then(response => response.json())
+                .then(data => {
+                    // document.getElementById('response').innerText = "Server Response: " + JSON.stringify(data);
+                    document.getElementById('response').style.display = "block";
 
-                if (data.download_link) {
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = `/download/${data.download_link}`;
-                    downloadLink.innerText = 'Download Images';
-                    downloadLink.classList.add('download-link');
-                    document.getElementById('response').appendChild(downloadLink);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                    if (data.download_link) {
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = `/download/${data.download_link}`;
+                        downloadLink.innerText = 'Download Images';
+                        downloadLink.classList.add('download-link');
+                        document.getElementById('response').appendChild(downloadLink);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
     </script>
 </body>
+
 </html>
