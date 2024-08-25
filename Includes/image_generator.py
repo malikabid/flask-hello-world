@@ -55,8 +55,8 @@ def generate_images_from_csv(csv_file):
         draw = ImageDraw.Draw(image)
         
         # Calculate text sizes
-        text_width_1, text_height_1 = draw.textsize(text_line_1, font=hindi_font)
-        text_width_2, text_height_2 = draw.textsize(text_line_2, font=english_font)
+        text_width_1, text_height_1 = draw.textlength(text_line_1, font=hindi_font)
+        text_width_2, text_height_2 = draw.textlength(text_line_2, font=english_font)
         
         # Calculate total height needed for both lines
         total_height = text_height_1 + text_height_2
