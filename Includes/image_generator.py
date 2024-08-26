@@ -40,9 +40,11 @@ def generate_images_from_csv(csv_file):
         
         if len(row) > 1:
             text_line_1 = row[1].strip()  # First line (Hindi)
+            text_line_1 = text_line_1.replace('\t',' ')  # First line (Hindi)
         else:
             text_line_1 = ""  # Empty field  # First line (Hindi)
-        text_line_2 = row[0].strip()  # Second line (English)
+        
+        text_line_2 = row[0].replace('\t',' ').strip()  # Second line (English)
         
         # Adjust font size if the length of the string is more than 20 characters
         if len(text_line_1) > 20:
