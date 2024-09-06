@@ -27,9 +27,9 @@ def generate_images_from_csv(csv_file):
 
     try:
         # Load the Arial font for English text
-        english_font = ImageFont.truetype("fonts/ARIBLK.TTF", font_size)
+        english_font = ImageFont.truetype("fonts/Arial.ttf", font_size)
         # Load the Nirmala font for Hindi text
-        hindi_font = ImageFont.truetype("fonts/nirmalab.ttf", font_size)
+        hindi_font = ImageFont.truetype("fonts/Nirmala.ttf", font_size)
     except IOError:
         print("Required font files not found. Please make sure Arial.ttf and Nirmala.ttf are in the same directory as the script.")
         return
@@ -48,9 +48,9 @@ def generate_images_from_csv(csv_file):
         
         # Adjust font size if the length of the string is more than 20 characters
         if len(text_line_1) > 20:
-            hindi_font = ImageFont.truetype("fonts/nirmalab.ttf", font_size - 10)
+            hindi_font = ImageFont.truetype("fonts/Nirmala.ttf", font_size - 10)
         if len(text_line_2) > 20:
-            english_font = ImageFont.truetype("fonts/ARIBLK.TTF", font_size - 10)
+            english_font = ImageFont.truetype("fonts/Arial.ttf", font_size - 10)
         
         # Create a white background image
         image = Image.new('L', (image_width, image_height), color='white')
