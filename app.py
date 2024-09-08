@@ -29,6 +29,7 @@ def submit():
         file.save(file_path)
         
         # Generate images from the CSV file
+        # output_dir = f'{UPLOAD_FOLDER}/{timestamp}' # for debugging purpose
         output_dir, num_images_generated = image_generator.generate_images_from_csv(file_path)
         
         # Create a download link for the generated images
@@ -62,6 +63,7 @@ def submit_textarea():
         # Process the CSV data as needed
 
         # Generate images from the CSV file
+        # output_dir = f'{UPLOAD_FOLDER}/{timestamp}' # for debugging purpose
         output_dir, num_images_generated = image_generator.generate_images_from_csv(file_path)
         
         # Create a download link for the generated images
