@@ -39,6 +39,7 @@
             <textarea id="csvTextarea" name="csvTextarea" rows="10" cols="50"
                 placeholder="Paste CSV data here"></textarea><br><br>
             <input type="submit" value="Submit CSV Data">
+            <input type="button" value="Reset" class="reset-button">
         </form>
 
         <!-- File upload form (hidden by default) -->
@@ -46,6 +47,7 @@
             <label for="file">Upload CSV File:</label><br>
             <input type="file" id="file" name="file" accept=".csv"><br><br>
             <input type="submit" value="Upload CSV File">
+            <input type="button" value="Reset" class="reset-button">
         </form>
 
         <p id="response"></p>
@@ -138,6 +140,34 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        });
+
+        // Function to reset the form
+        function resetForm() {
+            // Clear textarea
+            document.getElementById('csvTextarea').value = '';
+
+            // Clear file input
+            document.getElementById('file').value = '';
+
+            // Reset radio buttons to default
+            document.getElementById('textareaOption').checked = true;
+            document.getElementById('bothLanguages').checked = true;
+
+            // Show textarea form, hide file upload form
+            document.getElementById('textareaForm').style.display = 'block';
+            document.getElementById('fileUploadForm').style.display = 'none';
+
+            // Clear response and remove download link
+            document.getElementById('response').innerHTML = '';
+            document.getElementById('response').style.display = 'none';
+
+            removeDownloadLink();
+        }
+
+        // Add event listeners to reset buttons
+        document.querySelectorAll('.reset-button').forEach(button => {
+            button.addEventListener('click', resetForm);
         });
     </script>
 </body>
