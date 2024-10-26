@@ -21,6 +21,18 @@
             <label for="fileUploadOption">Upload CSV File</label>
         </div>
 
+        <!-- Language options -->
+        <div>
+            <input type="radio" id="bothLanguages" name="languageOption" value="both" checked>
+            <label for="bothLanguages">Both English and Hindi</label>
+
+            <input type="radio" id="englishOnly" name="languageOption" value="english">
+            <label for="englishOnly">English Only</label>
+
+            <input type="radio" id="hindiOnly" name="languageOption" value="hindi">
+            <label for="hindiOnly">Hindi Only</label>
+        </div>
+
         <!-- Textarea for pasting CSV data (default option) -->
         <form id="textareaForm" style="display: block;">
             <label for="csvTextarea">Paste your CSV data here:</label><br>
@@ -67,8 +79,10 @@
             removeDownloadLink();
 
             const csvData = document.getElementById('csvTextarea').value;
+            const languageOption = document.querySelector('input[name="languageOption"]:checked').value;
             const formData = new FormData();
             formData.append('csvTextarea', csvData);
+            formData.append('languageOption', languageOption);
 
             fetch('/submit_textarea', {
                 method: 'POST',
@@ -97,10 +111,12 @@
             e.preventDefault();
 
             removeDownloadLink();
-            
+
             const formData = new FormData();
             const fileInput = document.getElementById('file');
+            const languageOption = document.querySelector('input[name="languageOption"]:checked').value;
             formData.append('file', fileInput.files[0]);
+            formData.append('languageOption', languageOption);
 
             fetch('/submit', {
                 method: 'POST',
