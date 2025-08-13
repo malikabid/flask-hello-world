@@ -107,3 +107,4 @@ venv.bak/
 generated_*
 uploads/*
 *.code-workspace
+.DS_Store
