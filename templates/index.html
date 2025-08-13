@@ -32,6 +32,10 @@
                 <option value="urdu">Urdu Only</option>
             </select>
         </div>
+        <div id="reshaperOption" style="display:none; margin-bottom: 20px; text-align:center;">
+            <input type="checkbox" id="useReshaper" name="useReshaper" checked>
+            <label for="useReshaper">Use Urdu Reshaper (recommended for proper Urdu text)</label>
+        </div>
 
         <!-- Textarea for pasting CSV data (default option) -->
         <form id="textareaForm" style="display: block;">
@@ -82,9 +86,11 @@
 
             const csvData = document.getElementById('csvTextarea').value;
             const languageOption = document.getElementById('languageOption').value;
+            const useReshaper = document.getElementById('useReshaper').checked ? '1' : '0';
             const formData = new FormData();
             formData.append('csvTextarea', csvData);
             formData.append('languageOption', languageOption);
+            formData.append('useReshaper', useReshaper);
 
             fetch('/submit_textarea', {
                 method: 'POST',
@@ -108,6 +114,19 @@
                 });
         });
 
+        // Show/hide reshaper option based on language selection
+        function updateReshaperVisibility() {
+            const lang = document.getElementById('languageOption').value;
+            const reshaperDiv = document.getElementById('reshaperOption');
+            if (lang === 'urdu' || lang === 'english_urdu') {
+                reshaperDiv.style.display = 'block';
+            } else {
+                reshaperDiv.style.display = 'none';
+            }
+        }
+        document.getElementById('languageOption').addEventListener('change', updateReshaperVisibility);
+        window.addEventListener('DOMContentLoaded', updateReshaperVisibility);
+
         // Handle file upload form submission
         document.getElementById('fileUploadForm').addEventListener('submit', function (e) {
             e.preventDefault();
@@ -117,8 +136,10 @@
             const formData = new FormData();
             const fileInput = document.getElementById('file');
             const languageOption = document.getElementById('languageOption').value;
+            const useReshaper = document.getElementById('useReshaper').checked ? '1' : '0';
             formData.append('file', fileInput.files[0]);
             formData.append('languageOption', languageOption);
+            formData.append('useReshaper', useReshaper);
 
             fetch('/submit', {
                 method: 'POST',
