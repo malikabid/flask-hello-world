@@ -66,6 +66,23 @@ def generate_images_from_csv(csv_file, language="both"):
             else:
                 text_line_1 = ""  # Empty field
             text_line_2 = row[0].replace("\t", " ").strip()  # Second line (English)
+        elif language == "english_urdu":
+            # Always use the last column for Urdu, first column for English
+            text_line_1 = row[1].strip()   # Urdu (last column)
+            text_line_2 = row[0].replace("\t", " ").strip()  # Second line (English)
+            print("Urdu text:", text_line_1)
+            print("Urdu text:", text_line_1)
+            print("Extracted Urdu text before reshape:", text_line_1)
+            if text_line_1:
+                if reshaper_available:
+                    try:
+                        reshaped_text = arabic_reshaper.reshape(text_line_1)
+                        text_line_1 = get_display(reshaped_text)
+                        print("Urdu text reshaped:", text_line_1)
+                    except Exception as e:
+                        print(f"Urdu reshaping failed: {e}")
+                else:
+                    print("Warning: arabic_reshaper and python-bidi not available. Urdu text may not be connected.")
         elif language == "english":
             text_line_1 = ""
             text_line_2 = row[0].replace("\t", " ").strip()  # Only English text
@@ -118,6 +135,20 @@ def generate_images_from_csv(csv_file, language="both"):
                 (image_width - text_width_2) / 2,
                 (image_height + total_height) / 2 - text_height_2,
             )
+        elif language == "english_urdu":
+            [text_width_1, text_height_1] = urdu_font.font.getsize(text_line_1)[0]
+            [text_width_2, text_height_2] = english_font.font.getsize(text_line_2)[0]
+            text_height_1 = text_height_1 if text_height_1 > 90 else 90
+            gap = 15  # vertical gap in pixels between Urdu and English lines
+            total_height = text_height_1 + text_height_2 + gap
+            position_1 = (
+                (image_width - text_width_1) / 2,
+                (image_height - total_height) / 2 - gap,  # Adjusted for better centering
+            )
+            position_2 = (
+                (image_width - text_width_2) / 2,
+                (image_height - total_height) / 2 + text_height_1 + gap,
+            )
         elif language == "english":
             [text_width_2, text_height_2] = english_font.font.getsize(text_line_2)[0]
             position_2 = (
@@ -149,6 +180,11 @@ def generate_images_from_csv(csv_file, language="both"):
         elif language == "english_hindi":
             if text_line_1.strip():
                 draw.text(position_1, text_line_1, fill=(0,0,0), font=hindi_font)
+            if text_line_2.strip():
+                draw.text(position_2, text_line_2, fill=(0,0,0), font=english_font)
+        elif language == "english_urdu":
+            if text_line_1.strip():
+                draw.text(position_1, text_line_1, fill=(0,0,0), font=urdu_font)
             if text_line_2.strip():
                 draw.text(position_2, text_line_2, fill=(0,0,0), font=english_font)
         elif language == "english" and text_line_2.strip():
