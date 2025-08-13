@@ -117,3 +117,6 @@ def download(folder):
 
     # Send the zip file for download
     return send_file(zip_file_path, as_attachment=True)
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5500)

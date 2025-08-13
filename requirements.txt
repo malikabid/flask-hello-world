@@ -6,3 +6,6 @@ rsa
 zipp
 pandas
 Pillow
+Flask-DebugToolbar
+arabic-reshaper
+python-bidi

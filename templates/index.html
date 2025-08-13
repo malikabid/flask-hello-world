@@ -23,14 +23,14 @@
 
         <!-- Language options -->
         <div>
-            <input type="radio" id="bothLanguages" name="languageOption" value="both" checked>
-            <label for="bothLanguages">Both English and Hindi</label>
-
-            <input type="radio" id="englishOnly" name="languageOption" value="english">
-            <label for="englishOnly">English Only</label>
-
-            <input type="radio" id="hindiOnly" name="languageOption" value="hindi">
-            <label for="hindiOnly">Hindi Only</label>
+            <label for="languageOption">Select Language:</label>
+            <select id="languageOption" name="languageOption">
+                <option value="english_hindi" selected>English + Hindi</option>
+                <option value="english_urdu">English + Urdu</option>
+                <option value="english">English Only</option>
+                <option value="hindi">Hindi Only</option>
+                <option value="urdu">Urdu Only</option>
+            </select>
         </div>
 
         <!-- Textarea for pasting CSV data (default option) -->
@@ -81,7 +81,7 @@
             removeDownloadLink();
 
             const csvData = document.getElementById('csvTextarea').value;
-            const languageOption = document.querySelector('input[name="languageOption"]:checked').value;
+            const languageOption = document.getElementById('languageOption').value;
             const formData = new FormData();
             formData.append('csvTextarea', csvData);
             formData.append('languageOption', languageOption);
@@ -116,7 +116,7 @@
 
             const formData = new FormData();
             const fileInput = document.getElementById('file');
-            const languageOption = document.querySelector('input[name="languageOption"]:checked').value;
+            const languageOption = document.getElementById('languageOption').value;
             formData.append('file', fileInput.files[0]);
             formData.append('languageOption', languageOption);
 

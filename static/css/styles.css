@@ -1,3 +1,30 @@
+/* Styled select input to match the theme */
+select#languageOption {
+    /* width: 100%; */
+    padding: 10px 40px 10px 20px; /* extra right padding for arrow */
+    font-size: 1em;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%234CAF50" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px 20px;
+    cursor: pointer;
+}
+
+select#languageOption:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76,175,80,0.2);
+}
 /* General Reset */
 * {
     margin: 0;
