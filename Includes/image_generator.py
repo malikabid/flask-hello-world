@@ -27,8 +27,8 @@ def load_font(font_path, size, fallback=None):
         print(f"Warning: {font_path} not found or failed to load. Using fallback font.")
         return fallback if fallback else ImageFont.load_default()
 
-def shape_urdu_text(text):
-    if reshaper_available and text:
+def shape_urdu_text(text, use_reshaper=True):
+    if use_reshaper and reshaper_available and text:
         try:
             reshaped = arabic_reshaper.reshape(text)
             return get_display(reshaped)
@@ -119,7 +119,7 @@ def draw_text_on_image(draw, language, text_line_1, text_line_2, font1, font2, p
     elif language == "english" and text_line_2.strip():
         draw.text(position_2, text_line_2, fill=(0,0,0), font=font2)
 
-def generate_images_from_csv(csv_file, language="both"):
+def generate_images_from_csv(csv_file, language="both", use_reshaper=True):
     print("Reshaper available:", features.check('raqm'))
     print("Reshaper available:", reshaper_available)
 
@@ -148,8 +148,8 @@ def generate_images_from_csv(csv_file, language="both"):
 
         # Shape Urdu text if needed
         if language in ["urdu", "english_urdu"]:
-            text_line_1 = shape_urdu_text(text_line_1)
-            print("Shaped Urdu text:", text_line_1)
+            text_line_1 = shape_urdu_text(text_line_1, use_reshaper=use_reshaper)
+            print("Shaped Urdu text (reshaper {}):".format(use_reshaper), text_line_1)
 
         # Load/adjust fonts
         if language == "english_hindi":

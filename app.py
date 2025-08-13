@@ -26,6 +26,7 @@ def hello_world():
 def submit():
     file = request.files.get("file")
     language_option = request.form.get("languageOption", "both")
+    use_reshaper = request.form.get("useReshaper", "1") == "1"
 
     # Save the uploaded file
     if file and file.filename.endswith(".csv"):
@@ -37,7 +38,7 @@ def submit():
         # Generate images from the CSV file
         # output_dir = f'{UPLOAD_FOLDER}/{timestamp}' # for debugging purpose
         output_dir, num_images_generated = image_generator.generate_images_from_csv(
-            file_path, language=language_option
+            file_path, language=language_option, use_reshaper=use_reshaper
         )
 
         # Create a download link for the generated images
@@ -69,6 +70,7 @@ def submit():
 def submit_textarea():
     csv_data = request.form.get("csvTextarea")
     language_option = request.form.get("languageOption", "both")
+    use_reshaper = request.form.get("useReshaper", "1") == "1"
 
     if not csv_data:
         return jsonify({"status": "error", "message": "No CSV data provided."}), 400
@@ -91,7 +93,7 @@ def submit_textarea():
         # Generate images from the CSV file
         # output_dir = f'{UPLOAD_FOLDER}/{timestamp}' # for debugging purpose
         output_dir, num_images_generated = image_generator.generate_images_from_csv(
-            file_path, language=language_option
+            file_path, language=language_option, use_reshaper=use_reshaper
         )
 
         # Create a download link for the generated images
