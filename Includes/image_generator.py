@@ -58,9 +58,8 @@ def generate_images_from_csv(csv_file, language="both"):
         return
 
     num_images_generated = 0
-
     for index, row in df.iterrows():
-        if language == "both":
+        if language == "english_hindi":
             if len(row) > 1:
                 text_line_1 = row[1].strip()  # First line (Hindi)
                 text_line_1 = text_line_1.replace("\t", " ")
@@ -106,7 +105,7 @@ def generate_images_from_csv(csv_file, language="both"):
         draw = ImageDraw.Draw(image)
 
         # Calculate text sizes and positions
-        if language == "both":
+        if language == "english_hindi":
             [text_width_1, text_height_1] = hindi_font.font.getsize(text_line_1)[0]
             [text_width_2, text_height_2] = english_font.font.getsize(text_line_2)[0]
             text_height_1 = text_height_1 if text_height_1 > 90 else 90
@@ -147,7 +146,7 @@ def generate_images_from_csv(csv_file, language="both"):
         elif language == "urdu" and text_line_1.strip():
             # Draw Urdu text without direction argument (libraqm not available)
             draw.text(position_1, text_line_1, fill=(0,0,0), font=urdu_font)
-        elif language == "both":
+        elif language == "english_hindi":
             if text_line_1.strip():
                 draw.text(position_1, text_line_1, fill=(0,0,0), font=hindi_font)
             if text_line_2.strip():
