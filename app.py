@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify, render_template, send_file
 from Includes import image_generator
+from Includes.status_page import status_bp
 import os
 import csv
 import datetime
 import shutil
 
+
 app = Flask(__name__)
+app.register_blueprint(status_bp)
 
 # Ensure the upload folder exists
 UPLOAD_FOLDER = "uploads"
