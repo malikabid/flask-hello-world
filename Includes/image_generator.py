@@ -18,7 +18,7 @@ IMAGE_WIDTH = 1080
 IMAGE_HEIGHT = 260
 URDU_FONT_PATH = os.path.join(FONTS_DIR, "NotoNaskhArabic-Regular.ttf")
 HINDI_FONT_PATH = os.path.join(FONTS_DIR, "Nirmala.ttf")
-ENGLISH_FONT_PATH = os.path.join(FONTS_DIR, "Arial-Medium.ttf")
+ENGLISH_FONT_PATH = os.path.join(FONTS_DIR, "RobotoMono-VariableFont_wght.ttf")
 
 def load_font(font_path, size, fallback=None):
     try:
